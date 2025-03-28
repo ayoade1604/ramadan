@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Greeting Card Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&family=Mountains+of+Christmas&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #4a6fa5;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffe66d;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .occasion-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .occasion-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .occasion-btn.active, .occasion-btn:hover {
+            background-color: #4a6fa5;
+            color: white;
+        }
+
+        .template-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .template {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .template:hover {
+            transform: translateY(-5px);
+        }
+
+        .template-preview {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .template-info {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .editor-container {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-preview {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff9e6;
+            min-height: 400px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .editable {
+            outline: none;
+            margin-bottom: 1rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .control-group {
+            margin-bottom: 1rem;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #4a6fa5;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3a5a8f;
+        }
+
+        .share-section {
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .share-link {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        #shareUrl {
+            flex-grow: 1;
+            max-width: 500px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        #copyBtn {
+            border-radius: 0 4px 4px 0;
+            padding: 0.5rem 1rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            color: #666;
+        }
+
+        .font-preview {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            min-height: 2rem;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .upload-btn {
+            border: 1px solid #ddd;
+            color: #333;
+            background-color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+
+        /* Occasion-specific fonts */
+        .christmas-font {
+            font-family: 'Mountains of Christmas', cursive;
+        }
+        
+        .wedding-font {
+            font-family: 'Great Vibes', cursive;
+        }
+        
+        .easter-font {
+            font-family: 'Comic Sans MS', cursive;
+        }
+        
+        .newyear-font {
+            font-family: 'Arial Black', sans-serif;
+        }
+        
+        .newmonth-font {
+            font-family: 'Georgia', serif;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Greeting Card Generator</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="create.html">Create Card</a>
+            <a href="how-to-use.html">How to Use</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Create Your Perfect Greeting Card</h1>
+        
+        <div class="occasion-selector">
+            <button class="occasion-btn active" data-occasion="birthday">Birthday</button>
+            <button class="occasion-btn" data-occasion="christmas">Christmas</button>
+            <button class="occasion-btn" data-occasion="wedding">Wedding</button>
+            <button class="occasion-btn" data-occasion="easter">Easter</button>
+            <button class="occasion-btn" data-occasion="newyear">New Year</button>
+            <button class="occasion-btn" data-occasion="newmonth">New Month</button>
+        </div>
+        
+        <div id="templateSelection" class="template-selection">
+            <!-- Templates will be loaded here based on occasion -->
+        </div>
+        
+        <div id="editorContainer" class="editor-container">
+            <div class="card-preview" id="cardPreview">
+                <h1 class="editable" id="cardTitle" contenteditable="true">Happy Occasion!</h1>
+                <p class="editable" id="cardMessage" contenteditable="true">Wishing you a wonderful celebration filled with joy and happiness!</p>
+                <p class="editable" id="cardFrom" contenteditable="true">From, [Your Name]</p>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="bgType">Background Type</label>
+                    <select id="bgType">
+                        <option value="color">Color</option>
+                        <option value="image">Image</option>
+                        <option value="gradient">Gradient</option>
+                    </select>
+                </div>
+                
+                <div class="control-group" id="bgColorGroup">
+                    <label for="bgColor">Background Color</label>
+                    <input type="color" id="bgColor" value="#fff9e6">
+                </div>
+                
+                <div class="control-group" id="bgImageGroup" style="display:none;">
+                    <label for="bgImage">Background Image</label>
+                    <div class="upload-btn-wrapper">
+                        <button class="upload-btn">Choose Image</button>
+                        <input type="file" id="bgImage" accept="image/*">
+                    </div>
+                </div>
+                
+                <div class="control-group" id="gradientGroup" style="display:none;">
+                    <label for="gradientColor1">Gradient Color 1</label>
+                    <input type="color" id="gradientColor1" value="#4a6fa5">
+                    <label for="gradientColor2">Gradient Color 2</label>
+                    <input type="color" id="gradientColor2" value="#6fa54a">
+                </div>
+                
+                <div class="control-group">
+                    <label for="textColor">Text Color</label>
+                    <input type="color" id="textColor" value="#333333">
+                </div>
+                
+                <div class="control-group">
+                    <label for="fontFamily">Font Family</label>
+                    <select id="fontFamily">
+                        <option value="'Poppins', sans-serif">Poppins</option>
+                        <option value="'Arial', sans-serif">Arial</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Brush Script MT', cursive">Brush Script</option>
+                    </select>
+                    <div id="fontPreview" class="font-preview">Font Preview</div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="fontSize">Font Size</label>
+                    <select id="fontSize">
+                        <option value="16px">Small</option>
+                        <option value="18px" selected>Medium</option>
+                        <option value="20px">Large</option>
+                        <option value="24px">Extra Large</option>
+                    </select>
+                </div>
+                
+                <button id="saveCard">Save Card</button>
+                <button id="backToTemplates">Back to Templates</button>
+            </div>
+            
+            <div id="shareSection" class="share-section">
+                <h3>Your card is ready to share!</h3>
+                <div class="share-link">
+                    <input type="text" id="shareUrl" readonly>
+                    <button id="copyBtn">Copy</button>
+                </div>
+                <p>Share this link with your friends and family</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2023 Greeting Card Generator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Template data for different occasions
+        const templates = {
+            birthday: [
+                {
+                    id: 'b1',
+                    name: 'Classic Birthday',
+                    description: 'Clean and timeless design',
+                    bgColor: '#ffe66d',
+                    textColor: '#333',
+                    fontFamily: "'Poppins', sans-serif"
+                },
+                {
+                    id: 'b2',
+                    name: 'Party Theme',
+                    description: 'Bright and cheerful',
+                    bgColor: '#ff6b6b',
+                    textColor: '#ffffff',
+                    fontFamily: "'Arial', sans-serif"
+                }
+            ],
+            christmas: [
+                {
+                    id: 'c1',
+                    name: 'Traditional Christmas',
+                    description: 'Classic holiday design',
+                    bgColor: '#d32f2f',
+                    textColor: '#ffffff',
+                    fontFamily: "'Mountains of Christmas', cursive"
+                },
+                {
+                    id: 'c2',
+                    name: 'Winter Wonderland',
+                    description: 'Snowy festive theme',
+                    bgColor: '#e3f2fd',
+                    textColor: '#0d47a1',
+                    fontFamily: "'Mountains of Christmas', cursive"
+                }
+            ],
+            wedding: [
+                {
+                    id: 'w1',
+                    name: 'Elegant Wedding',
+                    description: 'Sophisticated design',
+                    bgColor: '#f8f3e6',
+                    textColor: '#5d4037',
+                    fontFamily: "'Great Vibes', cursive"
+                },
+                {
+                    id: 'w2',
+                    name: 'Romantic Theme',
+                    description: 'Love and flowers',
+                    bgColor: '#fce4ec',
+                    textColor: '#ad1457',
+                    fontFamily: "'Great Vibes', cursive"
+                }
+            ],
+            easter: [
+                {
+                    id: 'e1',
+                    name: 'Spring Easter',
+                    description: 'Bright spring colors',
+                    bgColor: '#e8f5e9',
+                    textColor: '#2e7d32',
+                    fontFamily: "'Comic Sans MS', cursive"
+                },
+                {
+                    id: 'e2',
+                    name: 'Pastel Easter',
+                    description: 'Soft pastel theme',
+                    bgColor: '#f3e5f5',
+                    textColor: '#6a1b9a',
+                    fontFamily: "'Comic Sans MS', cursive"
+                }
+            ],
+            newyear: [
+                {
+                    id: 'n1',
+                    name: 'Fireworks Celebration',
+                    description: 'Bold and exciting',
+                    bgColor: '#0d47a1',
+                    textColor: '#ffeb3b',
+                    fontFamily: "'Arial Black', sans-serif"
+                },
+                {
+                    id: 'n2',
+                    name: 'Elegant New Year',
+                    description: 'Classy gold design',
+                    bgColor: '#212121',
+                    textColor: '#ffd700',
+                    fontFamily: "'Times New Roman', serif"
+                }
+            ],
+            newmonth: [
+                {
+                    id: 'm1',
+                    name: 'Fresh Start',
+                    description: 'Clean new beginning',
+                    bgColor: '#e1f5fe',
+                    textColor: '#0277bd',
+                    fontFamily: "'Georgia', serif"
+                },
+                {
+                    id: 'm2',
+                    name: 'Motivational',
+                    description: 'Inspiring new month',
+                    bgColor: '#f1f8e9',
+                    textColor: '#558b2f',
+                    fontFamily: "'Georgia', serif"
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const templateSelection = document.getElementById('templateSelection');
+            const editorContainer = document.getElementById('editorContainer');
+            const cardPreview = document.getElementById('cardPreview');
+            const backToTemplatesBtn = document.getElementById('backToTemplates');
+            const saveCardBtn = document.getElementById('saveCard');
+            const shareSection = document.getElementById('shareSection');
+            const shareUrl = document.getElementById('shareUrl');
+            const copyBtn = document.getElementById('copyBtn');
+            const occasionBtns = document.querySelectorAll('.occasion-btn');
+            
+            // Template controls
+            const bgType = document.getElementById('bgType');
+            const bgColor = document.getElementById('bgColor');
+            const bgColorGroup = document.getElementById('bgColorGroup');
+            const bgImage = document.getElementById('bgImage');
+            const bgImageGroup = document.getElementById('bgImageGroup');
+            const gradientGroup = document.getElementById('gradientGroup');
+            const gradientColor1 = document.getElementById('gradientColor1');
+            const gradientColor2 = document.getElementById('gradientColor2');
+            const textColor = document.getElementById('textColor');
+            const fontFamily = document.getElementById('fontFamily');
+            const fontSize = document.getElementById('fontSize');
+            const fontPreview = document.getElementById('fontPreview');
+            
+            let currentCardId = null;
+            let currentOccasion = 'birthday';
+            
+            // Load templates for default occasion
+            loadTemplates(currentOccasion);
+            
+            // Occasion selection
+            occasionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    occasionBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentOccasion = this.dataset.occasion;
+                    loadTemplates(currentOccasion);
+                    
+                    // Update default text based on occasion
+                    updateDefaultText(currentOccasion);
+                });
+            });
+            
+            // Template selection
+            templateSelection.addEventListener('click', function(e) {
+                const template = e.target.closest('.template');
+                if (template) {
+                    const templateId = template.getAttribute('data-template');
+                    applyTemplate(templateId);
+                    templateSelection.style.display = 'none';
+                    editorContainer.style.display = 'block';
+                }
+            });
+            
+            // Back to templates
+            backToTemplatesBtn.addEventListener('click', function() {
+                templateSelection.style.display = 'grid';
+                editorContainer.style.display = 'none';
+                shareSection.style.display = 'none';
+            });
+            
+            // Save card
+            saveCardBtn.addEventListener('click', async function() {
+                const cardData = {
+                    title: document.getElementById('cardTitle').innerHTML,
+                    message: document.getElementById('cardMessage').innerHTML,
+                    from: document.getElementById('cardFrom').innerHTML,
+                    bgType: bgType.value,
+                    bgColor: bgColor.value,
+                    textColor: textColor.value,
+                    fontFamily: fontFamily.value,
+                    fontSize: fontSize.value,
+                    occasion: currentOccasion,
+                    template: currentCardId
+                };
+                
+                // Add gradient or image data if needed
+                if (bgType.value === 'gradient') {
+                    cardData.gradientColors = [gradientColor1.value, gradientColor2.value];
+                } else if (bgType.value === 'image') {
+                    // In a real app, you would upload the image to a server
+                    cardData.bgImage = 'user-uploaded-image.jpg';
+                }
+                
+                try {
+                    // Simulate API call
+                    const response = await simulateApiCall(cardData);
+                    currentCardId = response.id;
+                    
+                    // Generate shareable link
+                    const shareLink = `${window.location.origin}/card/${currentCardId}`;
+                    shareUrl.value = shareLink;
+                    shareSection.style.display = 'block';
+                    
+                    // Scroll to share section
+                    shareSection.scrollIntoView({ behavior: 'smooth' });
+                } catch (error) {
+                    alert('Error saving card: ' + error.message);
+                }
+            });
+            
+            // Copy link
+            copyBtn.addEventListener('click', function() {
+                shareUrl.select();
+                document.execCommand('copy');
+                
+                // Change button text temporarily
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+            
+            // Background type change
+            bgType.addEventListener('change', function() {
+                bgColorGroup.style.display = 'none';
+                bgImageGroup.style.display = 'none';
+                gradientGroup.style.display = 'none';
+                
+                if (this.value === 'color') {
+                    bgColorGroup.style.display = 'block';
+                } else if (this.value === 'image') {
+                    bgImageGroup.style.display = 'block';
+                } else if (this.value === 'gradient') {
+                    gradientGroup.style.display = 'block';
+                }
+                
+                updateCardStyle();
+            });
+            
+            // Background image upload
+            bgImage.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        cardPreview.style.backgroundImage = `url(${event.target.result})`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Control changes
+            bgColor.addEventListener('input', updateCardStyle);
+            textColor.addEventListener('input', updateCardStyle);
+            fontFamily.addEventListener('change', updateCardStyle);
+            fontSize.addEventListener('change', updateCardStyle);
+            gradientColor1.addEventListener('input', updateCardStyle);
+            gradientColor2.addEventListener('input', updateCardStyle);
+            
+            // Font preview
+            fontFamily.addEventListener('change', function() {
+                fontPreview.style.fontFamily = this.value;
+            });
+            
+            function loadTemplates(occasion) {
+                templateSelection.innerHTML = '';
+                
+                templates[occasion].forEach(template => {
+                    const templateEl = document.createElement('div');
+                    templateEl.className = 'template';
+                    templateEl.setAttribute('data-template', template.id);
+                    
+                    templateEl.innerHTML = `
+                        <div class="template-preview" style="background-color: ${template.bgColor}; display: flex; justify-content: center; align-items: center;">
+                            <h3 style="color: ${template.textColor}; font-family: ${template.fontFamily}">${template.name}</h3>
+                        </div>
+                        <div class="template-info">
+                            <h4>${template.name}</h4>
+                            <p>${template.description}</p>
+                        </div>
+                    `;
+                    
+                    templateSelection.appendChild(templateEl);
+                });
+            }
+            
+            function applyTemplate(templateId) {
+                currentCardId = templateId;
+                
+                // Find the template in the current occasion
+                const template = templates[currentOccasion].find(t => t.id === templateId);
+                
+                if (template) {
+                    // Set background color by default
+                    bgType.value = 'color';
+                    bgColorGroup.style.display = 'block';
+                    bgImageGroup.style.display = 'none';
+                    gradientGroup.style.display = 'none';
+                    
+                    // Apply template styles
+                    cardPreview.style.backgroundColor = template.bgColor;
+                    cardPreview.style.color = template.textColor;
+                    cardPreview.style.fontFamily = template.fontFamily;
+                    cardPreview.style.backgroundImage = 'none';
+                    
+                    // Update controls to match template
+                    bgColor.value = template.bgColor;
+                    textColor.value = template.textColor;
+                    fontFamily.value = template.fontFamily;
+                    fontPreview.style.fontFamily = template.fontFamily;
+                }
+                
+                updateCardStyle();
+            }
+            
+            function updateCardStyle() {
+                if (bgType.value === 'color') {
+                    cardPreview.style.backgroundColor = bgColor.value;
+                    cardPreview.style.backgroundImage = 'none';
+                } else if (bgType.value === 'gradient') {
+                    cardPreview.style.background = `linear-gradient(135deg, ${gradientColor1.value}, ${gradientColor2.value})`;
+                }
+                // Image background is handled separately in the change event
+                
+                cardPreview.style.color = textColor.value;
+                cardPreview.style.fontFamily = fontFamily.value;
+                cardPreview.style.fontSize = fontSize.value;
+            }
+            
+            function updateDefaultText(occasion) {
+                const title = document.getElementById('cardTitle');
+                const message = document.getElementById('cardMessage');
+                
+                switch(occasion) {
+                    case 'birthday':
+                        title.textContent = 'Happy Birthday!';
+                        message.textContent = 'Wishing you a wonderful day filled with joy and happiness!';
+                        break;
+                    case 'christmas':
+                        title.textContent = 'Merry Christmas!';
+                        message.textContent = 'Wishing you a holiday season filled with warmth and joy!';
+                        break;
+                    case 'wedding':
+                        title.textContent = 'Congratulations!';
+                        message.textContent = 'Wishing you a lifetime of love and happiness together!';
+                        break;
+                    case 'easter':
+                        title.textContent = 'Happy Easter!';
+                        message.textContent = 'Wishing you a joyful Easter celebration!';
+                        break;
+                    case 'newyear':
+                        title.textContent = 'Happy New Year!';
+                        message.textContent = 'Wishing you health, happiness and success in the new year!';
+                        break;
+                    case 'newmonth':
+                        title.textContent = 'Happy New Month!';
+                        message.textContent = 'Wishing you a productive and successful month ahead!';
+                        break;
+                }
+            }
+            
+            // Simulate API call to backend
+            function simulateApiCall(cardData) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        // Generate a fake ID
+                        const fakeId = 'card-' + Math.random().toString(36).substr(2, 9);
+                        resolve({ id: fakeId, data: cardData });
+                    }, 500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

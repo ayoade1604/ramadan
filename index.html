@@ -3,1043 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramadan Mubarak - Greeting Generator</title>
+    <title> salamia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-green: #0a5d36;
-            --secondary-green: #0e8c52;
+            --primary-green: #0d6832;
+            --secondary-green: #105c2f;
             --gold: #d4af37;
-            --light-gold: #f8e9a1;
-            --dark-gold: #a17c1a;
+            --light-gold: #f1e5ac;
+            --dark-gold: #b39129;
+            --white: #fff;
+            --light-gray: #f5f5f5;
+            --gray: #ddd;
+            --dark-gray: #555;
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
-        
+
         body {
             background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
+            background-image: url(./image/temp1.jpeg);
+            color: goldenrod;
+            overflow-x: hidden;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Navigation Bar Styles */
-        .navbar {
-            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
         
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 1rem 0;
         }
         
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--gold);
             text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
         }
         
-        .logo-icon {
-            width: 30px;
-            height: 30px;
-            background-color: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            color: var(--primary-green);
-            font-weight: bold;
-        }
-        
-        .logo-text {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: white;
+        .logo i {
+            font-size: 1.8rem;
+            animation: pulse 2s infinite;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 20px;
         }
         
-        .nav-links li a {
-            color: white;
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light-gold);
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: background-color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
         
-        .nav-links li a:hover, .nav-links li a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .nav-links li a.active {
+        .nav-links a:hover, .nav-links a.active {
             background-color: var(--gold);
             color: var(--primary-green);
         }
         
-        .mobile-nav-toggle {
+        .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: white;
-            font-size: 24px;
+            color: var(--gold);
+            font-size: 1.5rem;
             cursor: pointer;
         }
         
-        header {
-            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            animation: fadeIn 1.5s ease-out;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            animation: slideUp 1.5s ease-out;
-        }
-        
-        .decoration {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        
-        .moon {
-            position: absolute;
-            top: 20px;
-            right: 50px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--light-gold);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--gold);
-            animation: glow 3s infinite alternate;
-        }
-        
-        .star {
-            position: absolute;
-            background-color: var(--gold);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: twinkle 3s infinite alternate;
-        }
-        
-        .star:nth-child(1) {
-            top: 30px;
-            left: 80px;
-            width: 20px;
-            height: 20px;
-            animation-delay: 0.5s;
-        }
-        
-        .star:nth-child(2) {
-            top: 60px;
-            left: 140px;
-            width: 15px;
-            height: 15px;
-            animation-delay: 1s;
-        }
-        
-        .star:nth-child(3) {
-            top: 40px;
-            right: 120px;
-            width: 25px;
-            height: 25px;
-            animation-delay: 1.5s;
-        }
-        
-        .lantern {
-            position: absolute;
-            bottom: -20px;
-            width: 40px;
-            height: 70px;
-            background: linear-gradient(var(--gold), var(--dark-gold));
-            border-radius: 10px 10px 5px 5px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-            animation: sway 4s infinite alternate;
-        }
-        
-        .lantern:before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 10px;
-            background-color: var(--dark-gold);
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .lantern:nth-child(4) {
-            left: 10%;
-            animation-delay: 0.5s;
-        }
-        
-        .lantern:nth-child(5) {
-            left: 30%;
-            animation-delay: 1s;
-        }
-        
-        .lantern:nth-child(6) {
-            left: 50%;
-            animation-delay: 1.5s;
-        }
-        
-        .lantern:nth-child(7) {
-            left: 70%;
-            animation-delay: 2s;
-        }
-        
-        .lantern:nth-child(8) {
-            left: 90%;
-            animation-delay: 2.5s;
-        }
-        
-        .main-content {
+
+
+        .navbar {
+            background-color: goldenrod;
+            padding: 1rem 2rem;
             display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .template-chooser {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            animation: fadeIn 1s ease-out;
-        }
-        
-        .template-chooser h2 {
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .template-chooser h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-green), var(--gold));
-        }
-        
-        .templates {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .template {
-            border: 2px solid #eee;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .template:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: var(--gold);
-        }
-        
-        .template img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-        
-        .template-title {
-            padding: 15px;
-            text-align: center;
-            color: var(--primary-green);
-            font-weight: bold;
-        }
-        
-        .editor {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            animation: fadeIn 1s ease-out 0.3s;
-            animation-fill-mode: both;
-        }
-        
-        .editor h2 {
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .editor h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-green), var(--gold));
-        }
-        
-        .editor-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary-green);
-            font-weight: 600;
-        }
-        
-        input[type="text"], textarea, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        input[type="text"]:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
-        }
-        
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .preview {
-            margin-top: 30px;
-            padding: 20px;
-            border: 2px dashed var(--primary-green);
-            border-radius: 10px;
-            min-height: 300px;
-            position: relative;
-        }
-        
-        .preview h3 {
-            color: var(--primary-green);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        #greeting-preview {
-            display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            min-height: 300px;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            background-size: cover;
-            background-position: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .greeting-text {
-            position: relative;
-            z-index: 2;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-width: 80%;
+
+        .logo {
+            color:goldenrod;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
         }
-        
-        .greeting-title {
-            font-size: 2rem;
-            color: var(--primary-green);
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        .greeting-message {
-            font-size: 1.2rem;
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .greeting-signature {
-            font-style: italic;
-            color: var(--secondary-green);
-            font-size: 1.1rem;
-        }
-        
-        .buttons {
+
+        .nav-links {
             display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            justify-content: center;
+            gap: 1.5rem;
         }
-        
-        .btn {
-            padding: 12px 25px;
+
+        .nav-links a {
+            color: goldenrod;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffe66d;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
             border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
+            color: var(--gold);
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        
+
+        .hero {
+           
+            color: goldenrod;
+            text-align: center;
+            padding: 5rem 1rem;
+            
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: goldenrod;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            color: white;
+
+        .features {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            
         }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
-            color: white;
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: goldenrod;
         }
-        
-        .btn-tertiary {
-            background-color: #f5f5f5;
-            color: var(--primary-green);
-            border: 2px solid var(--primary-green);
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-        
-        .share-section {
-            margin-top: 30px;
-            padding: 20px;
+
+        .feature-card {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: none;
-            animation: fadeIn 1s ease-out;
-        }
-        
-        .share-section h3 {
-            color: var(--primary-green);
-            margin-bottom: 15px;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        
-        .share-link {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
         }
-        
-        .share-link input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px 0 0 5px;
-            font-size: 1rem;
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
         }
-        
-        .copy-btn {
-            padding: 12px 20px;
-            background-color: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-            transition: background-color 0.3s;
+
+        .cta {
+           
+            text-align: center;
+            padding: 4rem 1rem;
         }
-        
-        .copy-btn:hover {
-            background-color: var(--secondary-green);
+
+        .cta h2 {
+            margin-bottom: 2rem;
+            color:goldenrod;
         }
+
         
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-green);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
-        }
-        
-        .toast.show {
-            opacity: 1;
-        }
-        
+        /* Footer */
         footer {
-            margin-top: 50px;
             text-align: center;
-            padding: 20px;
-            color: #666;
+            padding: 2rem 1rem;
+            background-color: #333;
+            color: white;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
         
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .footer-column h3 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            position: relative;
         }
         
-        @keyframes glow {
-            from { box-shadow: 0 0 10px var(--gold); }
-            to { box-shadow: 0 0 25px var(--gold), 0 0 50px var(--light-gold); }
+        .footer-column h3::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--gold);
+            margin-top: 0.5rem;
         }
         
-        @keyframes twinkle {
-            from { opacity: 0.3; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        .footer-column ul {
+            list-style: none;
         }
         
-        @keyframes sway {
-            from { transform: translateY(0) rotate(-5deg); }
-            to { transform: translateY(-10px) rotate(5deg); }
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
         }
         
+        .footer-column a {
+            color: var(--light-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--light-gold);
+        }
+
         @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
             }
             
             .nav-links {
-                position: fixed;
-                top: 70px;
-                right: -100%;
-                flex-direction: column;
-                background-color: var(--primary-green);
-                width: 80%;
-                height: calc(100vh - 70px);
-                padding: 20px;
-                transition: right 0.3s ease;
-                z-index: 999;
+                margin-top: 1rem;
             }
             
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .mobile-nav-toggle {
-                display: block;
-            }
-            
-            header {
-                padding: 30px 15px;
-            }
-            
-            header h1 {
+            .hero h1 {
                 font-size: 2rem;
-            }
-            
-            .template-chooser, .editor {
-                padding: 20px;
-            }
-            
-            .templates {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-            
-            .buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">R</div>
-                <div class="logo-text">RamadanGreetings</div>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-mosque"></i>
+                <span>SALAMIA</span>
             </a>
-            
-            <button class="mobile-nav-toggle">☰</button>
-            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="templates.html">Templates</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="create.html">create card</a></li>
+                <li><a href="how-to-use.html">how to use</a></li>
+                <li><a href="about.html">about</a></li>
+                
             </ul>
         </div>
-    </nav>
+    </header>
+   
 
-    <div class="container">
-        <header>
-            <div class="decoration">
-                <div class="moon"></div>
-                <div class="star"></div>
-                <div class="star"></div>
-                <div class="star"></div>
-                <div class="lantern"></div>
-                <div class="lantern"></div>
-                <div class="lantern"></div>
-                <div class="lantern"></div>
-                <div class="lantern"></div>
-            </div>
-            <h1>Ramadan Mubarak</h1>
-            <p>Create beautiful Ramadan greetings to share with your loved ones</p>
-        </header>
-        
-        <div class="main-content">
-            <div class="template-chooser">
-                <h2>Choose a Template</h2>
-                <div class="templates">
-                    <div class="template" data-template="classic">
-                        <div style="background-color: var(--primary-green); height: 150px; display: flex; justify-content: center; align-items: center;">
-                            <div style="text-align: center; color: var(--gold);">
-                                <div style="font-size: 24px; font-weight: bold;">Ramadan Mubarak</div>
-                                <div style="font-size: 16px;">Classic Green & Gold</div>
-                            </div>
-                        </div>
-                        <div class="template-title">Classic</div>
-                    </div>
-                    <div class="template" data-template="modern">
-                        <div style="background: linear-gradient(135deg, var(--primary-green), #123); height: 150px; display: flex; justify-content: center; align-items: center;">
-                            <div style="text-align: center; color: var(--light-gold);">
-                                <div style="font-size: 24px; font-weight: bold;">Ramadan Kareem</div>
-                                <div style="font-size: 16px;">Modern Style</div>
-                            </div>
-                        </div>
-                        <div class="template-title">Modern</div>
-                    </div>
-                    <div class="template" data-template="ornate">
-                        <div style="background-color: var(--dark-gold); height: 150px; display: flex; justify-content: center; align-items: center;">
-                            <div style="text-align: center; color: white;">
-                                <div style="font-size: 24px; font-weight: bold;">Ramadan Blessings</div>
-                                <div style="font-size: 16px;">Ornate Golden Frame</div>
-                            </div>
-                        </div>
-                        <div class="template-title">Ornate</div>
-                    </div>
-                    <div class="template" data-template="minimal">
-                        <div style="background-color: white; height: 150px; display: flex; justify-content: center; align-items: center; border: 2px solid var(--gold);">
-                            <div style="text-align: center; color: var(--primary-green);">
-                                <div style="font-size: 24px; font-weight: bold;">Ramadan</div>
-                                <div style="font-size: 16px;">Minimal & Elegant</div>
-                            </div>
-                        </div>
-                        <div class="template-title">Minimal</div>
-                    </div>
+    <section class="hero">
+        <h1>as salam alikum welcome to salamia</h1>
+        <p>Design personalized islamic cards for your loved ones with our easy-to-use generator. No design skills needed!</p>
+        <a href="create.html" class="btn">Start Creating Now</a>
+    </section>
+
+    <section class="features">
+        <h2>Why Choose Our Card Generator</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-magic"></i>
                 </div>
+                <h3>Easy to Use</h3>
+                <p>Our intuitive interface makes card creation simple for everyone, regardless of technical skills.</p>
             </div>
             
-            <div class="editor">
-                <h2>Customize Your Greeting</h2>
-                <div class="editor-content">
-                    <div class="form-group">
-                        <label for="title">Greeting Title</label>
-                        <input type="text" id="title" placeholder="e.g. Ramadan Mubarak" value="Ramadan Mubarak">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" placeholder="Write your greeting message here...">May this blessed month bring you peace, happiness, and abundant blessings. Wishing you and your family a joyous Ramadan filled with love and spiritual growth.</textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="signature">Your Name</label>
-                        <input type="text" id="signature" placeholder="e.g. Your Name" value="Your Name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="color-scheme">Color Scheme</label>
-                        <select id="color-scheme">
-                            <option value="green-gold">Green & Gold (Default)</option>
-                            <option value="teal-gold">Teal & Gold</option>
-                            <option value="navy-gold">Navy & Gold</option>
-                            <option value="purple-gold">Purple & Gold</option>
-                        </select>
-                    </div>
-                    
-                    <div class="preview">
-                        <h3>Preview</h3>
-                        <div id="greeting-preview">
-                            <div class="greeting-text">
-                                <div class="greeting-title">Ramadan Mubarak</div>
-                                <div class="greeting-message">May this blessed month bring you peace, happiness, and abundant blessings. Wishing you and your family a joyous Ramadan filled with love and spiritual growth.</div>
-                                <div class="greeting-signature">- Your Name</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="buttons">
-                        <button id="save-btn" class="btn btn-primary">Save & Generate Link</button>
-                        <button id="reset-btn" class="btn btn-tertiary">Reset</button>
-                    </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
                 </div>
+                <h3>Customizable Designs</h3>
+                <p>Choose from multiple templates and customize colors, fonts, and messages to your liking.</p>
             </div>
             
-            <div id="share-section" class="share-section">
-                <h3>Share Your Greeting</h3>
-                <p>Your greeting has been saved! Copy the link below to share with your loved ones:</p>
-                <div class="share-link">
-                    <input type="text" id="share-url" readonly>
-                    <button id="copy-btn" class="copy-btn">Copy</button>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-share-alt"></i>
                 </div>
+                <h3>Easy Sharing</h3>
+                <p>Generate a unique link to share your card with friends and family instantly.</p>
             </div>
         </div>
-        
-        <footer>
-            <p>Ramadan Mubarak Greeting Generator © 2025</p>
-        </footer>
-    </div>
-    
-    <div id="toast" class="toast">Link copied to clipboard!</div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Navigation Toggle
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            mobileNavToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                mobileNavToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-            });
-            
-            // Elements
-            const templates = document.querySelectorAll('.template');
-            const titleInput = document.getElementById('title');
-            const messageInput = document.getElementById('message');
-            const signatureInput = document.getElementById('signature');
-            const colorSchemeSelect = document.getElementById('color-scheme');
-            const previewEl = document.getElementById('greeting-preview');
-            const saveBtn = document.getElementById('save-btn');
-            const resetBtn = document.getElementById('reset-btn');
-            const shareSection = document.getElementById('share-section');
-            const shareUrlInput = document.getElementById('share-url');
-            const copyBtn = document.getElementById('copy-btn');
-            const toast = document.getElementById('toast');
-            
-            // Store current template
-            let currentTemplate = 'classic';
-            
-            // Template configurations
-            const templateConfigs = {
-                classic: {
-                    background: 'linear-gradient(135deg, var(--primary-green), var(--secondary-green))',
-                    textColor: 'var(--gold)',
-                    fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif'
-                },
-                modern: {
-                    background: 'linear-gradient(135deg, var(--primary-green), #123)',
-                    textColor: 'var(--light-gold)',
-                    fontFamily: 'Arial, sans-serif'
-                },
-                ornate: {
-                    background: 'var(--dark-gold)',
-                    textColor: 'white',
-                    fontFamily: 'Georgia, serif'
-                },
-                minimal: {
-                    background: 'white',
-                    textColor: 'var(--primary-green)',
-                    fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
-                    border: '2px solid var(--gold)'
-                }
-            };
-            
-            // Color scheme configurations
-            const colorSchemes = {
-                'green-gold': {
-                    '--primary-green': '#0a5d36',
-                    '--secondary-green': '#0e8c52',
-                    '--gold': '#d4af37',
-                    '--light-gold': '#f8e9a1',
-                    '--dark-gold': '#a17c1a'
-                },
-                'teal-gold': {
-                    '--primary-green': '#008080',
-                    '--secondary-green': '#00a8a8',
-                    '--gold': '#d4af37',
-                    '--light-gold': '#f8e9a1',
-                    '--dark-gold': '#a17c1a'
-                },
-                'navy-gold': {
-                    '--primary-green': '#000080',
-                    '--secondary-green': '#0000a8',
-                    '--gold': '#d4af37',
-                    '--light-gold': '#f8e9a1',
-                    '--dark-gold': '#a17c1a'
-                },
-                'purple-gold': {
-                    '--primary-green': '#800080',
-                    '--secondary-green': '#a800a8',
-                    '--gold': '#d4af37',
-                    '--light-gold': '#f8e9a1',
-                    '--dark-gold': '#a17c1a'
-                }
-            };
-            
-            // Initialize preview
-            updatePreview();
-            
-            // Event listeners
-            templates.forEach(template => {
-                template.addEventListener('click', function() {
-                    currentTemplate = this.dataset.template;
-                    
-                    // Update active template
-                    templates.forEach(t => t.style.border = '2px solid #eee');
-                    this.style.border = `2px solid var(--gold)`;
-                    
-                    updatePreview();
-                });
-            });
-            
-            titleInput.addEventListener('input', updatePreview);
-            messageInput.addEventListener('input', updatePreview);
-            signatureInput.addEventListener('input', updatePreview);
-            colorSchemeSelect.addEventListener('change', function() {
-                // Update color scheme
-                const scheme = colorSchemes[this.value];
-                for (const [key, value] of Object.entries(scheme)) {
-                    document.documentElement.style.setProperty(key, value);
-                }
-                
-                updatePreview();
-            });
-            
-            saveBtn.addEventListener('click', function() {
-                // Create URL parameters
-                const params = new URLSearchParams();
-                params.append('template', currentTemplate);
-                params.append('title', titleInput.value);
-                params.append('message', messageInput.value);
-                params.append('signature', signatureInput.value);
-                params.append('colorScheme', colorSchemeSelect.value);
-                
-                // Generate URL
-                const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-                
-                // Show share section
-                shareSection.style.display = 'block';
-                shareUrlInput.value = url;
-                
-                // Scroll to share section
-                shareSection.scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            resetBtn.addEventListener('click', function() {
-                // Reset form
-                titleInput.value = 'Ramadan Mubarak';
-                messageInput.value = 'May this blessed month bring you peace, happiness, and abundant blessings. Wishing you and your family a joyous Ramadan filled with love and spiritual growth.';
-                signatureInput.value = 'Your Name';
-                colorSchemeSelect.value = 'green-gold';
-                currentTemplate = 'classic';
-                
-                // Reset template selection
-                templates.forEach(t => t.style.border = '2px solid #eee');
-                templates[0].style.border = `2px solid var(--gold)`;
-                
-                // Update preview
-                updatePreview();
-                
-                // Hide share section
-                shareSection.style.display = 'none';
-            });
-            
-            copyBtn.addEventListener('click', function() {
-                shareUrlInput.select();
-                document.execCommand('copy');
-                showToast();
-            });
-            
-            function updatePreview() {
-                const selectedTemplate = templateConfigs[currentTemplate];
-                previewEl.style.background = selectedTemplate.background;
-                previewEl.style.color = selectedTemplate.textColor;
-                previewEl.style.fontFamily = selectedTemplate.fontFamily;
-                
-                // Update greeting text
-                const greetingTitle = previewEl.querySelector('.greeting-title');
-                const greetingMessage = previewEl.querySelector('.greeting-message');
-                const greetingSignature = previewEl.querySelector('.greeting-signature');
-                
-                greetingTitle.textContent = titleInput.value;
-                greetingMessage.textContent = messageInput.value;
-                greetingSignature.textContent = `- ${signatureInput.value}`;
-                
-                // Apply border for minimal template
-                if (currentTemplate === 'minimal') {
-                    previewEl.style.border = '2px solid var(--gold)';
-                } else {
-                    previewEl.style.border = 'none';
-                }
-            }
-            
-            function showToast() {
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2000);
-            }
-        });
-    </script>
-    namespace RamadanGreetingsAPI.Models
-{
-    public class Greeting
-    {
-        public string Template { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
-        public string Signature { get; set; }
-        public string ColorScheme { get; set; }
-    }
-}
-using Microsoft.AspNetCore.Mvc;
-using RamadanGreetingsAPI.Models;
-using System.Collections.Generic;
+    </section>
 
-namespace RamadanGreetingsAPI.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class GreetingsController : ControllerBase
-    {
-        private static List<Greeting> greetings = new List<Greeting>();
+    <section class="cta">
+        <h2>Ready to Create Your Perfect islamic greetings Card?</h2>
+        <a href="create.html" class="btn" style="background-color: goldenrod; color: white;">Get Started</a>
+    </section>
+    <section class="cta">
+        <h2>curious on it work?</h2>
+        <a href="how-to-use.html" class="btn" style="background-color:goldenrod; color: white;">Get Started</a>
+    </section>
 
-        [HttpPost]
-        public IActionResult SaveGreeting([FromBody] Greeting greeting)
-        {
-            if (greeting == null)
-            {
-                return BadRequest("Greeting cannot be null.");
-            }
+   
+     <!-- Footer -->
+     <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SALAMIA</h3>
+                    <p>Create and share beautiful Islamic greetings and prayers with your loved ones.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="nav-links">
+                        <a href="index.html">Home</a>
+                        <a href="create.html">Create Card</a>
+                        <a href="how-to-use.html">How to Use</a>
+                        <a href="about.html">About</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="mailto:contact@example.com"><i class="fas fa-envelope"></i> Email Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Salamia Islamic Greetings & Prayers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-            greetings.Add(greeting);
-            return Ok(new { Message = "Greeting saved successfully!" });
-        }
-
-        [HttpGet]
-        public IActionResult GetGreetings()
-        {
-            return Ok(greetings);
-        }
-    }
-}
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-
-app.Run();
-saveBtn.addEventListener('click', async function() {
-  // Create URL parameters
-  const params = {
-      template: currentTemplate,
-      title: titleInput.value,
-      message: messageInput.value,
-      signature: signatureInput.value,
-      colorScheme: colorSchemeSelect.value
-  };
-
-  // Send POST request to save the greeting
-  const response = await fetch('/api/greetings', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-  });
-
-  if (response.ok) {
-      const data = await response.json();
-      // Generate URL
-      const url = `${window.location.origin}${window.location.pathname}?template=${currentTemplate}&title=${encodeURIComponent(titleInput.value)}&message=${encodeURIComponent(messageInput.value)}&signature=${encodeURIComponent(signatureInput.value)}&colorScheme=${colorSchemeSelect.value}`;
-      
-      // Show share section
-      shareSection.style.display = 'block';
-      shareUrlInput.value = url;
-
-      // Scroll to share section
-      shareSection.scrollIntoView({ behavior: 'smooth' });
-  } else {
-      alert('Failed to save greeting.');
-  }
-});
 </body>
 </html>

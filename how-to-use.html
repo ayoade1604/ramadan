@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Birthday Card Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #0d6832;
+            --secondary-green: #105c2f;
+            --gold: #d4af37;
+            --light-gold: #f1e5ac;
+            --dark-gold: #b39129;
+            --white: #fff;
+            --light-gray: #f5f5f5;
+            --gray: #ddd;
+            --dark-gray: #555;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            background-image: url(./image/use1\ \(1\));
+            color: #333;
+            overflow-x: hidden;
+        }
+         
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light-gold);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--gold);
+            color: var(--primary-green);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+
+        .navbar {
+            background-color: gold;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffe66d;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color:goldenrod;
+        }
+
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-number {
+            background-color: goldenrod;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step-content h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .step-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .step-image {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .step-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tips {
+            background-color: #ffe66d;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .tips h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .tips ul {
+            list-style-type: none;
+        }
+
+        .tips li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips li:before {
+            content: "•";
+            color: goldenrod;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -3px;
+        }
+        .cta {
+            background-color: #ffe66d;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .cta h2 {
+            margin-bottom: 2rem;
+            color: #333;
+            
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            color: goldenrod;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .step {
+                flex-direction: row;
+                gap: 2rem;
+                align-items: flex-start;
+            }
+            
+            .step-number {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-mosque"></i>
+                <span>SALAMIA</span>
+            </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="create.html">create card</a></li>
+                <li><a href="how-to-use.html">how to us </a></li>
+                <li><a href="about.html">about</a></li>
+            
+            </ul>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>How to Create Your islamic greeting Card</h1>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h2>Choose a Template</h2>
+                <p>Start by selecting one of our beautiful card templates. We offer a variety of designs to match any personality or occasion.</p>
+                <p>Click on the template that best fits your vision for the perfect birthday card.</p>
+                <div class="step-image">
+                    <img src="https://via.placeholder.com/600x300?text=Template+Selection" alt="Template selection screenshot">
+                </div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h2>Customize Your Card</h2>
+                <p>Once you've selected a template, you can personalize every aspect of your card:</p>
+                <ul>
+                    <li>Edit the text directly on the card preview</li>
+                    <li>Change the background color or use an image</li>
+                    <li>Adjust the text color and font style</li>
+                    <li>Modify the font size for different elements</li>
+                </ul>
+                <div class="step-image">
+                    <img src="https://via.placeholder.com/600x300?text=Customization+Options" alt="Customization options screenshot">
+                </div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h2>Save and Share</h2>
+                <p>When you're happy with your design, click the "Save Card" button to generate a unique link to your creation.</p>
+                <p>Use the "Copy" button to easily share your card via email, social media, or messaging apps.</p>
+                <div class="step-image">
+                    <img src="https://via.placeholder.com/600x300?text=Share+Your+Card" alt="Share options screenshot">
+                </div>
+            </div>
+        </div>
+        
+        <div class="tips">
+            <h2>Tips for Creating the Perfect Card</h2>
+            <ul>
+                <li>Keep your message personal and heartfelt</li>
+                <li>Consider the recipient's favorite colors when customizing</li>
+                <li>Use different font sizes to create visual hierarchy</li>
+                <li>Preview your card on different devices before sharing</li>
+                <li>Save multiple versions if you can't decide on a design</li>
+            </ul>
+        </div>
+    </div>
+    <section class="cta">
+        <h2>Ready to Create Your Perfect islamic greetings Card?</h2>
+        <a href="create.html" class="btn" style="background-color: goldenrod; color: white;">Get Started</a>
+    </section>
+    
+    <footer class="footer">
+        <p>&copy; 2025 salamia Card Generator. All rights reserved.</p>
+    </footer>
+</body>
+</html>

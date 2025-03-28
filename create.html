@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Birthday Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* All the previous CSS from the original index.html */
+        :root {
+          --primary-green: #0d6832;
+          --secondary-green: #105c2f;
+          --gold: #d4af37;
+          --light-gold: #f1e5ac;
+          --dark-gold: #b39129;
+          --white: #fff;
+          --light-gray: #f5f5f5;
+          --gray: #ddd;
+          --dark-gray: #555;
+      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            background-image: url(./image/create.jpeg);
+            color: #333;
+            overflow-x: hidden;
+        }
+        .container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+      }
+      /* Header & Navigation */
+      header {
+        background-color: var(--primary-green);
+        color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--gold);
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    
+    .logo i {
+        font-size: 1.8rem;
+        animation: pulse 2s infinite;
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-links li {
+        margin-left: 1.5rem;
+    }
+    
+    .nav-links a {
+        color: var(--light-gold);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+        background-color: var(--gold);
+        color: var(--primary-green);
+    }
+    
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--gold);
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+        .navbar {
+            background-color:goldenrod;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffe66d;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: goldenrod;
+        }
+
+        .template-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .template {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .template:hover {
+            transform: translateY(-5px);
+        }
+
+        .template-preview {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .template-info {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .editor-container {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-preview {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff9e6;
+            min-height: 400px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .editable {
+            outline: none;
+            margin-bottom: 1rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .control-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            background-color: goldenrod;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: goldenrod;
+        }
+
+        .share-section {
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .share-link {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+         /* Templates Section */
+         .templates {
+          padding: 4rem 0;
+          background-color: var(--light-gray);
+      }
+      
+      .template-creator {
+          background-color: var(--white);
+          border-radius: 8px;
+          padding: 2rem;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          margin-bottom: 2rem;
+      }
+      
+      .template-form {
+          display: grid;
+          gap: 1.5rem;
+      }
+      
+      .form-group {
+          display: flex;
+          flex-direction: column;
+      }
+      
+      .form-group label {
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+          color: var(--primary-green);
+      }
+      
+      .form-control {
+          padding: 0.8rem;
+          border: 1px solid var(--gray);
+          border-radius: 4px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+      }
+      
+      .form-control:focus {
+          outline: none;
+          border-color: var(--gold);
+          box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+      }
+      
+      textarea.form-control {
+          min-height: 150px;
+          resize: vertical;
+      }
+      
+      .btn {
+          padding: 0.8rem 1.5rem;
+          background-color: var(--primary-green);
+          color: var(--white);
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 500;
+          transition: all 0.3s ease;
+      }
+      
+      .btn:hover {
+          background-color: var(--secondary-green);
+      }
+      
+      .btn-gold {
+          background-color: var(--gold);
+          color: var(--primary-green);
+      }
+      
+      .btn-gold:hover {
+          background-color: var(--dark-gold);
+      }
+      
+      .template-preview {
+          background-color: var(--white);
+          border-radius: 8px;
+          padding: 2rem;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          margin-top: 2rem;
+      }
+      
+      .preview-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid var(--gray);
+      }
+      
+      .preview-content {
+          padding: 1rem;
+          border: 1px dashed var(--gray);
+          border-radius: 4px;
+          min-height: 200px;
+          margin-bottom: 1rem;
+          position: relative;
+      }
+      
+      .preview-btns {
+          display: flex;
+          gap: 1rem;
+          margin-top: 1rem;
+      }
+      
+      .share-container {
+          margin-top: 1rem;
+          padding: 1rem;
+          border-radius: 4px;
+          background-color: var(--light-gold);
+          display: none;
+      }
+      
+      .share-input {
+          width: 100%;
+          padding: 0.8rem;
+          border: 1px solid var(--gray);
+          border-radius: 4px;
+          margin-bottom: 1rem;
+      }
+      
+      /* Saved Templates */
+      .template-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+          margin-top: 2rem;
+      }
+      
+      .template-card {
+          background-color: var(--white);
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease;
+      }
+      
+      .template-card:hover {
+          transform: translateY(-5px);
+      }
+      
+      .template-card-header {
+          background-color: var(--primary-green);
+          color: var(--white);
+          padding: 1rem;
+          font-weight: 500;
+      }
+      
+      .template-card-body {
+          padding: 1.5rem;
+      }
+      
+      .template-card-footer {
+          display: flex;
+          padding: 1rem;
+          border-top: 1px solid var(--gray);
+          justify-content: flex-end;
+          gap: 0.5rem;
+      }
+      
+
+        #shareUrl {
+            flex-grow: 1;
+            max-width: 500px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        #copyBtn {
+          background-color: #ffe66d;
+            border-radius: 0 4px 4px 0;
+            padding: 0.5rem 1rem;
+        }
+
+        .cta {
+       
+          text-align: center;
+          padding: 4rem 1rem;
+      }
+
+      .cta h2 {
+          margin-bottom: 2rem;
+          color: goldenrod;
+      }
+
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header>
+    <div class="container nav-container">
+        <a href="#" class="logo">
+            <i class="fas fa-mosque"></i>
+            <span>SALAMIA</span>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="create.html">create card</a></li>
+            <li><a href="how-to-use.html">how to use</a></li>
+            <li><a href="about.html">about</a></li>
+            
+        </ul>
+    </div>
+</header>
+<section class="cta">
+  <h2>curious on it work?</h2>
+  <a href="how-to-use.html" class="btn" style="background-color:goldenrod; color: white;">Get Started</a>
+</section>
+
+    <div class="container">
+        <h1>Create Your Perfect islamic greeting Card</h1>
+        
+        <div id="templateSelection" class="template-selection">
+            <div class="template" data-template="1">
+                <div class="template-preview" style="background:url(./image/use1\ \(12\).jpeg); display: flex; justify-content: center; align-items: center;">
+                    <h3 style="color: #333;">Simple & Elegant</h3>
+                </div>
+                <div class="template-info">
+                    <h4>Classic Design</h4>
+                    <p>Clean and timeless</p>
+                </div>
+            </div>
+            
+            <div class="template" data-template="2">
+                <div class="template-preview" style=" background: url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') ; display: flex; justify-content: center; align-items: center;">
+                    <h3 style="color: white;">Fun Celebration</h3>
+                </div>
+                <div class="template-info">
+                    <h4>Party Theme</h4>
+                    <p>Bright and cheerful</p>
+                </div>
+            </div>
+            
+            <div class="template" data-template="3">
+                <div class="template-preview" style="background: linear-gradient(135deg, #4ecdc4, #556270); display: flex; justify-content: center; align-items: center;">
+                    <h3 style="color: white;">Modern Style</h3>
+                </div>
+                <div class="template-info">
+                    <h4>Contemporary</h4>
+                    <p>Sleek and stylish</p>
+                </div>
+            </div>
+            <div class="template" data-template="4">
+              <div class="template-preview" style="background: url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') center/cover; display: flex; justify-content: center; align-items: center;">
+                  <h3 style="color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">Photo Background</h3>
+              </div>
+              <div class="template-info">
+                  <h4>Photo Card</h4>
+                  <p>Personalized with image</p>
+              </div>
+          </div>
+      </div>
+      
+        <div id="editorContainer" class="editor-container">
+            <div class="card-preview" id="cardPreview">
+                <h1 class="editable" id="cardTitle" contenteditable="true">Eid mubrak!</h1>
+                <p class="editable" id="cardMessage" contenteditable="true">Wishing you a wonderful day filled with joy and happiness. May all your dreams come true!</p>
+                <p class="editable" id="cardFrom" contenteditable="true">From, [Your Name]</p>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="bgColor">Background Color</label>
+                    <input type="color" id="bgColor" value="#fff9e6">
+                </div>
+                
+                <div class="control-group">
+                    <label for="textColor">Text Color</label>
+                    <input type="color" id="textColor" value="#333333">
+                </div>
+                
+                <div class="control-group">
+                    <label for="fontFamily">Font Family</label>
+                    <select id="fontFamily">
+                        <option value="'Poppins', sans-serif">Poppins</option>
+                        <option value="'Arial', sans-serif">Arial</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Brush Script MT', cursive">Brush Script</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="fontSize">Font Size</label>
+                    <select id="fontSize">
+                        <option value="16px">Small</option>
+                        <option value="18px" selected>Medium</option>
+                        <option value="20px">Large</option>
+                        <option value="24px">Extra Large</option>
+                    </select>
+                </div>
+                
+                <button id="saveCard">Save Card</button>
+                <button id="backToTemplates">Back to Templates</button>
+            </div>
+            
+            <div id="shareSection" class="share-section">
+                <h3>Your card is ready to share!</h3>
+                <div class="share-link">
+                    <input type="text" id="shareUrl" readonly>
+                    <button id="copyBtn">Copy</button>
+                </div>
+                <p>Share this link with your friends and family</p>
+            </div>
+        </div>
+    </div>
+    <!-- Prayers Section -->
+    <section class="templates" id="prayers">
+      <div class="container">
+          <h2 class="section-title">Prayers Collection</h2>
+          <div class="template-grid">
+              <div class="template-card">
+                  <div class="template-card-header">
+                      Morning Prayer
+                  </div>
+                  <div class="template-card-body">
+                      <p class="arabic-text" style="text-align: right; font-size: 1.2rem; margin-bottom: 1rem;">اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ</p>
+                      <p>"O Allah, by You we enter the morning and by You we enter the evening, by You we live and by You we die, and to You is the Resurrection."</p>
+                  </div>
+                  <div class="template-card-footer">
+                      <button class="btn btn-gold btn-sm" onclick="useAsPrayer('Morning Prayer')"><i class="fas fa-plus"></i> Use</button>
+                  </div>
+              </div>
+              <div class="template-card">
+                  <div class="template-card-header">
+                      Evening Prayer
+                  </div>
+                  <div class="template-card-body">
+                      <p class="arabic-text" style="text-align: right; font-size: 1.2rem; margin-bottom: 1rem;">اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ</p>
+                      <p>"O Allah, by You we enter the evening and by You we enter the morning, by You we live and by You we die, and to You is the final return."</p>
+                  </div>
+                  <div class="template-card-footer">
+                      <button class="btn btn-gold btn-sm" onclick="useAsPrayer('Evening Prayer')"><i class="fas fa-plus"></i> Use</button>
+                  </div>
+              </div>
+              <div class="template-card">
+                  <div class="template-card-header">
+                      Prayer for Guidance
+                  </div>
+                  <div class="template-card-body">
+                      <p class="arabic-text" style="text-align: right; font-size: 1.2rem; margin-bottom: 1rem;">اللَّهُمَّ اهْدِنِي فِيمَنْ هَدَيْتَ، وَعَافِنِي فِيمَنْ عَافَيْتَ، وَتَوَلَّنِي فِيمَنْ تَوَلَّيْتَ، وَبَارِكْ لِي فِيمَا أَعْطَيْتَ</p>
+                      <p>"O Allah, guide me among those You have guided, pardon me among those You have pardoned, turn to me in friendship among those on whom You have turned in friendship, and bless me in what You have bestowed."</p>
+                  </div>
+                  <div class="template-card-footer">
+                      <button class="btn btn-gold btn-sm" onclick="useAsPrayer('Prayer for Guidance')"><i class="fas fa-plus"></i> Use</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+ 
+    <footer class="footer">
+        <p>&copy; 2023 salamia Card Generator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const templateSelection = document.getElementById('templateSelection');
+            const editorContainer = document.getElementById('editorContainer');
+            const cardPreview = document.getElementById('cardPreview');
+            const backToTemplatesBtn = document.getElementById('backToTemplates');
+            const saveCardBtn = document.getElementById('saveCard');
+            const shareSection = document.getElementById('shareSection');
+            const shareUrl = document.getElementById('shareUrl');
+            const copyBtn = document.getElementById('copyBtn');
+            
+            // Template controls
+            const bgColor = document.getElementById('bgColor');
+            const textColor = document.getElementById('textColor');
+            const fontFamily = document.getElementById('fontFamily');
+            const fontSize = document.getElementById('fontSize');
+            
+            let currentCardId = null;
+            
+            // Template selection
+            document.querySelectorAll('.template').forEach(template => {
+                template.addEventListener('click', function() {
+                    const templateId = this.getAttribute('data-template');
+                    applyTemplate(templateId);
+                    templateSelection.style.display = 'none';
+                    editorContainer.style.display = 'block';
+                });
+            });
+            
+            // Back to templates
+            backToTemplatesBtn.addEventListener('click', function() {
+                templateSelection.style.display = 'grid';
+                editorContainer.style.display = 'none';
+                shareSection.style.display = 'none';
+            });
+            
+            // Save card
+            saveCardBtn.addEventListener('click', async function() {
+                const cardData = {
+                    title: document.getElementById('cardTitle').innerHTML,
+                    message: document.getElementById('cardMessage').innerHTML,
+                    from: document.getElementById('cardFrom').innerHTML,
+                    bgColor: bgColor.value,
+                    textColor: textColor.value,
+                    fontFamily: fontFamily.value,
+                    fontSize: fontSize.value,
+                    template: currentCardId,
+                };
+                
+                try {
+                    // In a real application, this would be an API call to your backend
+                    // For this demo, we'll simulate it with a fake ID
+                    const response = await simulateApiCall(cardData);
+                    currentCardId = response.id;
+                    
+                    // Generate shareable link
+                    const shareLink = `${window.location.origin}/card/${currentCardId}`;
+                    shareUrl.value = shareLink;
+                    shareSection.style.display = 'block';
+                    
+                    // Scroll to share section
+                    shareSection.scrollIntoView({ behavior: 'smooth' });
+                } catch (error) {
+                    alert('Error saving card: ' + error.message);
+                }
+            });
+            
+            // Copy link
+            copyBtn.addEventListener('click', function() {
+                shareUrl.select();
+                document.execCommand('copy');
+                
+                // Change button text temporarily
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+            
+            // Control changes
+            bgColor.addEventListener('input', updateCardStyle);
+            textColor.addEventListener('input', updateCardStyle);
+            fontFamily.addEventListener('change', updateCardStyle);
+            fontSize.addEventListener('change', updateCardStyle);
+            
+            function applyTemplate(templateId) {
+                currentCardId = templateId;
+                
+                switch(templateId) {
+                    case '1':
+                        // Classic design
+                        cardPreview.style.backgroundColor = '#ffe66d';
+                        cardPreview.style.color = '#333';
+                        bgColor.value = '#ffe66d';
+                        textColor.value = '#333333';
+                        break;
+                    case '2':
+                        // Party theme
+                        cardPreview.style.backgroundColor = 'url(https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60) center/cover';
+                        cardPreview.style.color = 'white';cardPreview.style.textShadow = '1px 1px 3px rgba(0,0,0,0.8)';
+                        bgColor.value = '#000000';
+                        textColor.value = '#ffffff';
+                        break;
+                    case '3':
+                        // Modern style
+                        cardPreview.style.background = 'linear-gradient(135deg, #4ecdc4, #556270)';
+                        cardPreview.style.color = 'white';
+                        bgColor.value = '#4ecdc4';
+                        textColor.value = '#ffffff';
+                        break;
+                    case '4':
+                        // Photo background
+                        cardPreview.style.background = 'url(https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60) center/cover';
+                        cardPreview.style.color = 'white';
+                        cardPreview.style.textShadow = '1px 1px 3px rgba(0,0,0,0.8)';
+                        bgColor.value = '#000000';
+                        textColor.value = '#ffffff';
+                        break;
+                }
+                
+                updateCardStyle();
+            }
+            
+            function updateCardStyle() {
+                cardPreview.style.backgroundColor = bgColor.value;
+                cardPreview.style.color = textColor.value;
+                cardPreview.style.fontFamily = fontFamily.value;
+                cardPreview.style.fontSize = fontSize.value;
+                
+                // Reset text shadow if not using photo background
+                if (currentCardId !== '4') {
+                    cardPreview.style.textShadow = 'none';
+                }
+            }
+            
+            // Simulate API call to backend
+            function simulateApiCall(cardData) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        // Generate a fake ID
+                        const fakeId = 'card-' + Math.random().toString(36).substr(2, 9);
+                        resolve({ id: fakeId, data: cardData });
+                    }, 500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

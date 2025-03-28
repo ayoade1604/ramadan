@@ -1,43 +1,56 @@
- namespace RamadanGreetingsAPI.Models
-{
-    public class Greeting
-    {
-        public string Template { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
-        public string Signature { get; set; }
-        public string ColorScheme { get; set; }
-    }
-}
 using Microsoft.AspNetCore.Mvc;
-using RamadanGreetingsAPI.Models;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace RamadanGreetingsAPI.Controllers
+namespace BirthdayCardGenerator.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class GreetingsController : ControllerBase
+    [Route("api/[controller]")]
+    public class CardController : ControllerBase
     {
-        private static List<Greeting> greetings = new List<Greeting>();
+        private static Dictionary<string, CardData> _cards = new Dictionary<string, CardData>();
 
-        [HttpPost]
-        public IActionResult SaveGreeting([FromBody] Greeting greeting)
+        [HttpPost("save")]
+        public IActionResult SaveCard([FromBody] CardData cardData)
         {
-            if (greeting == null)
+            if (cardData == null)
             {
-                return BadRequest("Greeting cannot be null.");
+                return BadRequest("Invalid card data");
             }
 
-            greetings.Add(greeting);
-            return Ok(new { Message = "Greeting saved successfully!" });
+            // Generate a unique ID for the card
+            string cardId = Guid.NewGuid().ToString();
+
+            // Store the card data
+            _cards[cardId] = cardData;
+
+            // Return the card ID
+            return Ok(new { id = cardId });
         }
 
-        [HttpGet]
-        public IActionResult GetGreetings()
+        [HttpGet("{id}")]
+        public IActionResult GetCard(string id)
         {
-            return Ok(greetings);
+            if (_cards.TryGetValue(id, out var cardData))
+            {
+                return Ok(cardData);
+            }
+
+            return NotFound("Card not found");
         }
+    }
+
+    public class CardData
+    {
+        public string Title { get; set; }
+        public string Message { get; set; }
+        public string From { get; set; }
+        public string BgColor { get; set; }
+        public string TextColor { get; set; }
+        public string FontFamily { get; set; }
+        public string FontSize { get; set; }
+        public string Template { get; set; }
     }
 }
 using Microsoft.AspNetCore.Builder;
@@ -47,6 +60,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -56,42 +78,14 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthorization();
+
 app.MapControllers();
 
+// Fallback to index.html for SPA routing
+app.MapFallbackToFile("index.html");
+
 app.Run();
-saveBtn.addEventListener('click', async function() {
-  // Create URL parameters
-  const params = {
-      template: currentTemplate,
-      title: titleInput.value,
-      message: messageInput.value,
-      signature: signatureInput.value,
-      colorScheme: colorSchemeSelect.value
-  };
-
-  // Send POST request to save the greeting
-  const response = await fetch('/api/greetings', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-  });
-
-  if (response.ok) {
-      const data = await response.json();
-      // Generate URL
-      const url = `${window.location.origin}${window.location.pathname}?template=${currentTemplate}&title=${encodeURIComponent(titleInput.value)}&message=${encodeURIComponent(messageInput.value)}&signature=${encodeURIComponent(signatureInput.value)}&colorScheme=${colorSchemeSelect.value}`;
-      
-      // Show share section
-      shareSection.style.display = 'block';
-      shareUrlInput.value = url;
-
-      // Scroll to share section
-      shareSection.scrollIntoView({ behavior: 'smooth' });
-  } else {
-      alert('Failed to save greeting.');
-  }
-});
